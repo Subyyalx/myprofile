@@ -1,0 +1,60 @@
+2024-11-07T06:17:55.151Z [info]: Server running on http://localhost:3000
+2024-11-07T06:18:04.599Z [info]: Request received: GET /
+{"level":"info","message":"Server running on http://localhost:3000"}
+{"level":"info","message":"Request received: GET /"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /favicon.ico"}
+{"level":"info","message":"Request received: GET /register"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: POST /register"}
+{"level":"info","message":"User registered: root"}
+{"level":"info","message":"Request received: GET /login"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /register"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: POST /register"}
+{"level":"info","message":"User registered: aaa"}
+{"level":"info","message":"Request received: GET /login"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: POST /login"}
+{"level":"info","message":"User logged in: aaa"}
+{"level":"info","message":"Request received: GET /profile"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /profile"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /logout"}
+{"level":"info","message":"Request received: GET /"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /login"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: POST /login"}
+{"level":"info","message":"Server running on http://localhost:3000"}
+{"level":"info","message":"Request received: POST /login"}
+{"level":"error","message":"Login failed: User aaa not found"}
+{"level":"info","message":"Request received: GET /"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /register"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: POST /register"}
+{"level":"info","message":"User registered: aaa"}
+{"level":"info","message":"Request received: GET /login"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: POST /login"}
+{"level":"info","message":"User logged in successfully: aaa"}
+{"level":"info","message":"Request received: GET /profile"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /logout"}
+{"level":"info","message":"User logged out: aaa"}
+{"level":"info","message":"Request received: GET /"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: GET /login"}
+{"level":"info","message":"Request received: GET /styles.css"}
+{"level":"info","message":"Request received: POST /login"}
+{"level":"error","message":"Login failed: Incorrect password for user aaa"}
+{"level":"info","message":"Request received: GET /login"}

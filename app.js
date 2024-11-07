@@ -2,15 +2,18 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const winston = require('winston');
+const path = require('path');
 
 const app = express();
-const port = 3000;
+const port = 8080;
 
 // In-memory database for users (for demo purposes)
 const users = [];
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up session
 app.use(session({
@@ -26,6 +29,7 @@ const logger = winston.createLogger({
     new winston.transports.Console({
       format: winston.format.simple(),
     }),
+    new winston.transports.File({ filename: 'logs/app.log' })
   ],
 });
 
@@ -51,6 +55,7 @@ app.post('/register', async (req, res) => {
   // Check if user already exists
   const userExists = users.some(user => user.username === username);
   if (userExists) {
+    logger.error(`Registration failed: User ${username} already exists`);
     return res.send('User already exists');
   }
 
@@ -73,18 +78,20 @@ app.post('/login', async (req, res) => {
   // Find the user
   const user = users.find(u => u.username === username);
   if (!user) {
+    logger.error(`Login failed: User ${username} not found`);
     return res.send('User not found');
   }
 
   // Compare password with the hashed one
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
+    logger.error(`Login failed: Incorrect password for user ${username}`);
     return res.send('Invalid credentials');
   }
 
-  // Save session
+  // Save session and log successful login
   req.session.user = username;
-  logger.info(`User logged in: ${username}`);
+  logger.info(`User logged in successfully: ${username}`);
   
   res.redirect('/profile');
 });
@@ -101,10 +108,13 @@ app.get('/profile', (req, res) => {
 
 // Logout route
 app.get('/logout', (req, res) => {
+  const username = req.session.user;
   req.session.destroy((err) => {
     if (err) {
+      logger.error(`Logout error for user ${username}`);
       return res.send('Error logging out');
     }
+    logger.info(`User logged out: ${username}`);
     res.redirect('/');
   });
 });
