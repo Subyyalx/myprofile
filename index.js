@@ -5,7 +5,7 @@ const winston = require('winston');
 const path = require('path');
 
 const app = express();
-const port = 3000
+const port = process.env.PORT; // Use Azure-provided PORT only
 
 // In-memory database for users (for demo purposes)
 const users = [];
@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up session
 app.use(session({
-  secret: 'secret-key',
+  secret: process.env.SESSION_SECRET || 'secret-key', // Use environment variable for session secret
   resave: false,
   saveUninitialized: true
 }));
@@ -29,7 +29,7 @@ const logger = winston.createLogger({
     new winston.transports.Console({
       format: winston.format.simple(),
     }),
-    new winston.transports.File({ filename: 'logs/app.log' })
+    new winston.transports.File({ filename: 'logs/app.log' }) // Optional: Log to file
   ],
 });
 
@@ -119,8 +119,7 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// Start the server
+// Start the server using only the Azure-provided port
 app.listen(port, () => {
-  logger.info(`Server running on http://localhost:${port}`);
+  logger.info(`Server running on port ${port}`);
 });
-//..
