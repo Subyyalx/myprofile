@@ -5,7 +5,7 @@ const winston = require('winston');
 const path = require('path');
 
 const app = express();
-const port = 8080;
+const port = process.env.port || 8080
 
 // In-memory database for users (for demo purposes)
 const users = [];
