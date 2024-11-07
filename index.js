@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const session = require('express-session');
 const winston = require('winston');
 const path = require('path');
@@ -49,7 +48,7 @@ app.get('/register', (req, res) => {
   res.render('register');
 });
 
-app.post('/register', async (req, res) => {
+app.post('/register', (req, res) => {
   const { username, password } = req.body;
   
   // Check if user already exists
@@ -59,9 +58,8 @@ app.post('/register', async (req, res) => {
     return res.send('User already exists');
   }
 
-  // Hash the password and save the user
-  const hashedPassword = await bcrypt.hash(password, 10);
-  users.push({ username, password: hashedPassword });
+  // Save the user with plain-text password (not recommended for production)
+  users.push({ username, password });
   logger.info(`User registered: ${username}`);
 
   res.redirect('/login');
@@ -72,7 +70,7 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login', (req, res) => {
   const { username, password } = req.body;
   
   // Find the user
@@ -82,9 +80,8 @@ app.post('/login', async (req, res) => {
     return res.send('User not found');
   }
 
-  // Compare password with the hashed one
-  const match = await bcrypt.compare(password, user.password);
-  if (!match) {
+  // Compare password as plain text
+  if (user.password !== password) {
     logger.error(`Login failed: Incorrect password for user ${username}`);
     return res.send('Invalid credentials');
   }
